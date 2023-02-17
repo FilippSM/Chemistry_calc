@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="css/main.css">
+    <script>
+        
+    </script>
 </head>
 <body>
     <form name="dens" class="dens-form" action="#">
-        <h1></h1>
-        <div class="dens-form__item">
+        <h2>Плотнось</h2>
+<!--        <div class="dens-form__item">
             <div class="dens-form__radio">
                 <label for="densimeter">Ареометр АНТ-1 </label>
                 <input type="radio" name="dens" />    
@@ -21,17 +24,164 @@
                 <label for="densimeter">Ареометр АОН-2 </label>
                 <input type="radio" name="dens" />          
             </div>     
-        </div>
+        </div>-->
         <div class="dens-form__item">
             <div class="dens-form__field">
-                <label for="temperature">Температура</label>  
-                <input type="text" id="temperature1">
+               <label for="density">Плотность</label>
+                <input type="text" id="density">
             </div>
             <div class="dens-form__field">
-                <label for="density">Плотность</label>
-                <input type="text" id="density1">      
-            </div> 
+                <label for="temperature">Температура</label>
+                <input type="text" id="temperature">      
+            </div>
+               <div class="dens-form__field">
+                <label for="correctHydrometr">Поправка</label>
+<!--                <select id="hydrometr" size="1" multiple>-->
+                <select id="hydrometr">
+                    <option value="0.7">АНТ-1, + 0,7 кг/см3</option>
+                    <option value="1.4" selected>АНТ-2, + 1,4 кг/см3</option>
+                    <option value="0">АОН-1</option>
+                </select>
+            </div>         
+            <div class="dens-form__field">
+                <label for="result">Результат</label>
+                <input type="text" id="result">  
+                <!--<p id="result"></p> -->     
+            </div>
+            <button onclick="calc()">Рассчитать</button>
         </div>   
-   </form>
+    </form>
+    <form name="visc" class="visc-form" action="#">
+        <h2>Вязкость</h2>
+        <div class="visc-form__item">
+            <div class="dens-form__field">
+               <label for="viscometer">Вискозиметр</label>
+                <input type="text" id="viscometer">
+            </div>
+            <div class="visc-form__field">
+                <label for="time">Время</label>
+                <input type="text" id="time">      
+            </div>
+               <div class="visc-form__field">
+                <label for="viscometer">Вискозиметр</label>
+<!--                <select id="hydrometr" size="1" multiple>-->
+               
+               
+               <input type="text" list="viscometers">
+               <datalist id="viscometers">
+                    <option value="I">
+                    <option value="II">
+                    <option value="III">
+                    <option value="IV">
+                    <option value="1178">
+                    <option value="1268">
+                </datalist>
+<!--
+                <select id="viscometer">
+                    <option value="1">I</option>
+                    <option value="2" selected>II</option>
+                    <option value="3">III</option>
+                    <option value="4">IV</option>
+                    <option value="4">1178</option>
+                </select>
+-->
+            </div>         
+            <div class="visc-form__field">
+                <label for="result">Результат</label>
+                <input type="text" id="result">  
+                <!--<p id="result"></p> -->     
+            </div>
+            <button onclick="calcViscosity()">Рассчитать</button>
+        </div>   
+    </form>
+    
+    
+    
+    <script>
+function calc() {
+        var num1, num2, num3, result, tempInt, densInt, tempFloat, densFloat;
+    num1 = document.getElementById('density').value.replace(',','.');
+    densInt = parseInt(num1);
+    densFloat = parseFloat(num1);
+    
+    num2 = document.getElementById('temperature').value.replace(',','.');
+    tempInt = parseInt(num2);
+    tempFloat = parseFloat(num2);
+    
+    num3 = document.getElementById('hydrometr').value;
+    correctHydrometr = parseFloat(num3);
+    console.log(num3);
+    
+    
+/*    arr = { 
+        "790.0": { 
+            "19.5": 789.6, 
+            "20.0": 790.0,
+            "20.5": 790.4
+            }, 
+        "780.0": {
+            "19.5":	779.6,
+            "20.0":	780.0,
+            "20.5":	780.4
+            } 
+    }; */
+    
+    arr = { 
+        790.0: { 
+            19.5: 789.6, 
+            20.0: 790.0,
+            20.5: 790.4
+            }, 
+        780.0: {
+            19.5: 779.6,
+            20.0: 780.0,
+            20.5: 780.4
+            } 
+    }; 
+    
+    
+    
+    let key1 = tempInt;
+    let key2 = densInt;
+
+    //console.log(arr[densInt][tempFloat]);
+    let densTable = arr[densInt][tempFloat];
+    let correctTable = Math.abs(densInt - densFloat);
+    //console.log(correct)
+    
+    result = densTable + correctTable + correctHydrometr;
+    result = result.toFixed(1);
+//    document.getElementById('result').value = result;
+    document.getElementById('result').value = `${result} кг/см3`;
+} 
+
+function alcViscosity() {
+arr = { 
+        1: { 
+            19.5: 789.6, 
+            20.0: 790.0,
+            20.5: 790.4
+            }, 
+        2: {
+            19.5: 779.6,
+            20.0: 780.0,
+            20.5: 780.4
+            },         
+            
+        3: {
+            19.5: 779.6,
+            20.0: 780.0,
+            20.5: 780.4
+            }, 
+        4: {
+            19.5: 779.6,
+            20.0: 780.0,
+            20.5: 780.4
+            } 
+    };   
+}      
+        
+        
+    </script>
 </body>
 </html>

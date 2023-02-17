@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 100px 200px;
     padding: .5em;
+
 }
 
 
@@ -9,4 +10,11 @@
     display: grid;
     grid-template-columns: 150px 30px;
     padding: .5em;
+}
+
+.visc-form__field {
+    display: grid;
+    grid-template-columns: 100px 200px;
+    padding: .5em;
+
 }
