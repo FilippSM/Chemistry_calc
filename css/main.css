@@ -18,3 +18,7 @@
     padding: .5em;
 
 }
+
+.visc-form__field {
+    display: none;
+}
